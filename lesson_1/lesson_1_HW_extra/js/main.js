@@ -8,10 +8,7 @@ for (var i = 0; i < tempArr.length; i++) {
 }
 //console.log(res); //126
 
-var resPow = Math.pow(res, 3); //2000376
+//var resPowString = Math.pow(res, 3) + "";
+//var firstTwoNumbers = +resPowString.slice(0, 2);
 
-var resPowString = resPow + "";
-
-var firstTwoNumbers = +resPowString.slice(0, 2);
-
-alert(firstTwoNumbers);
+alert( +(Math.pow(res, 3) + "").slice(0, 2) );
