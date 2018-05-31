@@ -16,6 +16,9 @@ for (let i = 0; i < 3; i++) {
 	
 	if ( (typeof(a)) === 'string' && (typeof(a)) !== null && a != '' && a.length < 50 ) {
 		mainList.shopGoods[i] = a;
+	} else {
+		alert("неверное значение, введите правильное название товара");
+		i--;
 	}
 }
 
@@ -27,7 +30,10 @@ for (let i = 0; i < 3; i++) {
 	
 // 	if ( (typeof(a)) === 'string' && (typeof(a)) !== null && a != '' && a.length < 50 ) {
 // 		mainList.shopGoods[i] = a;
-// 	}
+// 	} else {
+//		alert("неверное значение, введите правильное название товара");
+//		i--;
+//	}
 // 	i++;
 // } while (i < 3);
 
@@ -39,7 +45,10 @@ for (let i = 0; i < 3; i++) {
 	
 // 	if ( (typeof(a)) === 'string' && (typeof(a)) !== null && a != '' && a.length < 50 ) {
 // 		mainList.shopGoods[i] = a;
-// 	}
+// 	} else {
+//		alert("неверное значение, введите правильное название товара");
+//		i--;
+//	}
 // 	i++;
 // }
 
@@ -58,9 +67,5 @@ if (time < 0) {
 
 alert("бюджет на 1 день = " + monthAccount/30);
 
-console.log(mainList.account);
-console.log(mainList.name);
-console.log(mainList.shopGoods);
-console.log(mainList.employers);
-console.log(mainList.open);
+console.log(mainList);
 
