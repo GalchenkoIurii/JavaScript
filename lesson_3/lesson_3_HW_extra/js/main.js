@@ -30,16 +30,19 @@ str = changeSymbolsToSpace(str);
 
 function cutWord(str, word) {
 	let index = str.indexOf(word);
-	let tempArr = str.split('');
+	//let tempArr = str.split('');
 
-	return tempArr.splice(0, index).join('');
+	//return tempArr.splice(0, index).join('');
+
+	return str.slice(index, str.length);
 }
-str = cutWord(str, 'легким');
+let word = cutWord(str, 'легким');
+console.log(word);
 
 
 function changeLastLetters(str) {	
 	
-	return str.substr(0, str.length - 3) + 'оо';
+	return str.substr(0, str.length - 2) + 'о';
 }
 str = changeLastLetters(str);
 document.write(str);

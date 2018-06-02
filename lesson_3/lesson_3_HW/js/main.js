@@ -11,7 +11,20 @@ function start() {
 		monthAccount = +prompt("Ваш бюджет на месяц?", "0");
 	}
 
-	shopName = prompt("Название Вашего магазина?", "Shop").toUpperCase();
+	
+	for (let i = 0; i < 1; i++) {
+		shopName = prompt("Название Вашего магазина?", "Shop").toUpperCase();
+		let test = testOnNumbers(shopName);
+		
+		if ( (typeof(shopName)) === 'string' && (typeof(shopName)) != null && shopName != '' && shopName.length < 50 && test == false) {
+			continue;
+		} else {
+			alert("неверное значение, введите правильное название магазина");
+			i--;
+		}
+	}
+	
+
 	time = 19;
 }
 start();
@@ -27,9 +40,10 @@ let mainList = {
 
 function chooseGoods() {
 	for (let i = 0; i < 3; i++) {
-		let a = prompt("Какой тип товаров будем продавать?", "");
+		let a = prompt("Какой тип товаров будем продавать?", ""),
+			test = testOnNumbers(a);
 		
-		if ( (typeof(a)) === 'string' && (typeof(a)) != null && a != '' && a.length < 50 ) {
+		if ( (typeof(a)) === 'string' && (typeof(a)) != null && a != '' && a.length < 50 && test == false) {
 			mainList.shopGoods[i] = a;
 		} else {
 			alert("неверное значение, введите правильное название товара");
@@ -68,9 +82,10 @@ function getDiscount(discount) {
 
 function toEmploy() {
 	for (let i = 0; i < 4; i++) {
-		let a = prompt("введите имя сотрудника", "no name");
+		let a = prompt("введите имя сотрудника", "no name"),
+			test = testOnNumbers(a);
 
-		if ( (typeof(a)) === 'string' && (typeof(a)) != null && a !== 'no name' && a != '' && a.length < 50 ) {
+		if ( (typeof(a)) === 'string' && (typeof(a)) != null && a !== 'no name' && a != '' && a.length < 50 && test == false) {
 			mainList.employers[i] = (i + 1) + '-' + a;
 		} else {
 			alert("неверное значение, введите правильное имя");
@@ -79,6 +94,23 @@ function toEmploy() {
 	}
 }
 toEmploy();
+
+
+function testOnNumbers(str) {
+	let test = true;
+	for (let i = 0; i < str.length; i++) {
+		if ( !isNaN(str[i]) && str[i] !== ' ') {
+			test = true;
+			break;
+		} else {
+			test = false;
+		}
+	}
+
+	return test;
+}
+
+
 
 console.log(mainList);
 
