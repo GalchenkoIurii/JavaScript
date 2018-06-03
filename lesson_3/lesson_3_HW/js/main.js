@@ -16,7 +16,7 @@ function start() {
 		shopName = prompt("Название Вашего магазина?", "Shop").toUpperCase();
 		let test = testOnNumbers(shopName);
 		
-		if ( (typeof(shopName)) === 'string' && (typeof(shopName)) != null && shopName != '' && shopName.length < 50 && test == false) {
+		if ( (typeof(shopName)) === 'string' && (typeof(shopName)) != null && shopName != '' && shopName.length < 50 && test == false ) {
 			continue;
 		} else {
 			alert("неверное значение, введите правильное название магазина");
@@ -98,16 +98,23 @@ toEmploy();
 
 function testOnNumbers(str) {
 	let test = true;
-	for (let i = 0; i < str.length; i++) {
-		if ( !isNaN(str[i]) && str[i] !== ' ') {
-			test = true;
-			break;
-		} else {
-			test = false;
-		}
-	}
 
-	return test;
+	if (str != null) {
+		for (let i = 0; i < str.length; i++) {
+			if ( !isNaN(str[i]) && str[i] !== ' ') {
+				test = true;
+				break;
+			} else {
+				test = false;
+			}
+		}
+
+		return test;
+	} else {
+		
+		return true;
+	}
+	
 }
 
 

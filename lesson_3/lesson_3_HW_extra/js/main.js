@@ -10,22 +10,26 @@ function toUpperFirstLetter(str) {
 	return newStr;
 }
 str = toUpperFirstLetter(str);
+console.log(str);
 
 
 function changeSymbolsToSpace(str) {
-	let newStr = '';
+	
+	return str.replace(/-/g, ' ');
 
-	for (let i = 0; i < str.length; i++) {
-		if (str[i] === '-') {
-			newStr += ' ';
-		} else {
-			newStr += str[i];
-		}
-	}
+	//let newStr = '';
+	// for (let i = 0; i < str.length; i++) {
+	// 	if (str[i] === '-') {
+	// 		newStr += ' ';
+	// 	} else {
+	// 		newStr += str[i];
+	// 	}
+	// }
 
-	return newStr;
+	//return newStr;
 }
 str = changeSymbolsToSpace(str);
+console.log(str);
 
 
 function cutWord(str, word) {
@@ -67,31 +71,31 @@ console.log( getSqrtSumCube(arr) );
 
 
 //удаление пробелов в начале строки и в конце
-let myStr = ' stroka s probelami vtoraya stroka tretya stroka chetvertaya stroka';
+let myStr = ' stroka s probelami vtoraya stroka tretya stroka chetvertaya stroka ';
 
 function delSpaces(str) {
-	let newStr = '',
-		firstIndex = 0,
-		lastIndex = str.length;
+	 let newStr = '';
+		// firstIndex = 0,
+		// lastIndex = str.length;
 
 	if (typeof(str) === 'string') {
-		for (let i = 0; i < str.length; i++) {
-			if (str.charAt(i) === ' ') {
-				firstIndex++;
-			} else {
-				break;
-			}
-		}	
+		// for (let i = 0; i < str.length; i++) {
+		// 	if (str.charAt(i) === ' ') {
+		// 		firstIndex++;
+		// 	} else {
+		// 		break;
+		// 	}
+		// }	
 
-		for (let j = str.length - 1; j >= 0; j--) {
-			if (str.charAt(j) === ' ') {
-				lastIndex--;
-			} else {
-				break;
-			}
-		}	
+		// for (let j = str.length - 1; j >= 0; j--) {
+		// 	if (str.charAt(j) === ' ') {
+		// 		lastIndex--;
+		// 	} else {
+		// 		break;
+		// 	}
+		// }	
 
-		newStr = str.substring(firstIndex, lastIndex);
+		newStr = str.trim();
 
 	}  else {
 		alert('переданный аргумент не является строкой!');
