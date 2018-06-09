@@ -23,7 +23,8 @@ function start() {
 		}
 	}
 	
-	time = 19;
+	time = new Date().getHours();
+	console.log(time);
 }
 start();
 
@@ -55,7 +56,7 @@ let mainList = {
 		} else if (time > 8 && time < 20) {
 			console.log('работает');
 			mainList.open = true;
-			} else if (time < 24) {
+			} else if (time < 24 && time > 20) {
 				console.log('поздно');
 				} else {
 					console.log('не работает');
@@ -91,18 +92,26 @@ let mainList = {
 				mainList.shopItems = items.split(",");
 				for (let j = 0; j < 1; j++) {
 					let tempItems = prompt("добавьте еще ", "");
-					if (typeof tempItems === "string" && typeof tempItems != null && tempItems != "") {
+					if (typeof tempItems === "string" && typeof tempItems != null) {
 						mainList.shopItems = mainList.shopItems.concat( tempItems.split(",") );
 					} else {
 						alert("неверное значение, введите правильное значение");
 						j--;
 					}
 				};
+				console.log(mainList.shopItems);
 			} else {
 				alert("неверное значение, введите правильное значение");
 				i--;
 			}
 		};
+		for (let i = 0; i < mainList.shopItems.length; i++) {
+			let test = testOnNumbers(mainList.shopItems[i]);
+			if (mainList.shopItems[i] === '' || mainList.shopItems[i] === undefined || mainList.shopItems[i] === ' ' || test == true) {
+				mainList.shopItems.splice(i, 1);
+				i--;
+			}
+		}
 		mainList.shopItems.sort();
 	},
 	showShopItems: function showShopItems() {
@@ -135,7 +144,7 @@ function testOnNumbers(str) {
 	};
 
 //mainList.chooseGoods();
-//mainList.workTime();
+mainList.workTime(time);
 //alert("бюджет на 1 день = " + mainList.getDayAccount() );
 //console.log(mainList.getDiscount(true));
 //mainList.toEmploy();
