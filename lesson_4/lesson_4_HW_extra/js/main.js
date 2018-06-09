@@ -3,10 +3,13 @@ function getFriendlyNumbers(start, end) {
 	let resArr = [],
 		sumOfDiv = {},
 		tempArr = [],
+		matches = [],
 		number;
 
 	if (start < 220) {
 		number = 220;
+	} else {
+		number = start;
 	}
 
 	while (number < end) {
@@ -40,7 +43,7 @@ function getFriendlyNumbers(start, end) {
 	return resArr;
 };
 
-getFriendlyNumbers(1, 300);
+getFriendlyNumbers(284, 500);
 
 
 
