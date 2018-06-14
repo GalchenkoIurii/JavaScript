@@ -87,8 +87,9 @@ body {
   width: 550px;
   min-height: 400px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #7a8288;
   border: 1px solid black;
+  border-radius: 5px;
 }
 .main-info .name,
 .main-info .name-value,
@@ -118,11 +119,13 @@ body {
   width: 550px;
   min-height: 500px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #7a8288;
   border: 1px solid black;
+  border-radius: 5px;
 }
 .main-functions .choose-goods,
 .main-functions .choose-items,
+.main-functions .choose-discount,
 .main-functions .time,
 .main-functions .count-budget,
 .main-functions .hire-employers {
@@ -144,6 +147,7 @@ body {
   margin-top: 10px;
 }
 .main-functions .choose-item,
+.main-functions .choose-discount-item,
 .main-functions .time-value,
 .main-functions .count-budget-value {
   display: block;
