@@ -14,12 +14,26 @@ let openBtn = document.getElementById('open-btn'),
 	choose_discount = document.querySelector('.choose-discount-item'),
 	time_value = document.querySelector('.time-value'),
 	count_budget_value = document.querySelector('.count-budget-value'),
-	hire_employers_item = document.querySelectorAll('.hire-employers-item');
+	hire_employers_item = document.querySelectorAll('.hire-employers-item'),
+	inputs = document.getElementsByTagName('input');
 
 let monthAccount,
 	shopName;
 
 openBtn.addEventListener('click', () => {
+
+	for (let i = 0; i < inputs.length; i++) {
+		inputs[i].value = '';
+		if (inputs[i].getAttribute('id') !== 'budget') {
+			inputs[i].removeAttribute('readonly');
+		}
+	};
+	name_value.textContent = '';
+	budget_value.textContent = '';
+	goods_value.textContent = '';
+	items_value.textContent ='';
+	employers_value.textContent = '';
+
 	monthAccount = +prompt("Ваш бюджет на месяц?", "0");
 
 	while (isNaN(monthAccount) || monthAccount == "" || monthAccount == null) {
@@ -27,7 +41,7 @@ openBtn.addEventListener('click', () => {
 	}
 
 	for (let i = 0; i < 1; i++) {
-		shopName = prompt("Название Вашего магазина?", "Shop").toUpperCase();
+		shopName = prompt("Название Вашего магазина?", "Shop");
 		let test = testOnNumbers(shopName);
 		
 		if ( (typeof(shopName)) === 'string' && (typeof(shopName)) != null && shopName != '' && shopName.length < 50 && test == false ) {
@@ -58,22 +72,30 @@ hire_employers_item[0].addEventListener('change', () => {
 goods_btn.addEventListener('click', () => {
 
 	for (let i = 0; i < goods_item.length; i++) {
-		let a = goods_item[i].value;
+		let a = goods_item[i].value,
+		test = testOnNumbers(a);
 		
-		if ( (typeof(a)) === 'string' && (typeof(a)) != null && a.length < 50) {
-			mainList.shopGoods[i] = a;
-			goods_value.textContent = mainList.shopGoods;
-		} else {
-				i--;
-			}
-		}
+		if ( typeof(a) === 'string' && typeof(a) != undefined && typeof(a) != null && a != '' && a.length < 50 && test == false) {
+			mainList.shopGoods.push(a);
+		} 
+	}
+	goods_value.textContent = mainList.shopGoods;
 });
 
 choose_item.addEventListener('change', () => {
 	let items = choose_item.value;
 
 	if (isNaN(items) && items !='') {
-		mainList.shopItems = items.split(', ');
+		mainList.shopItems = items.split(',');
+
+		for (let i = 0; i < mainList.shopItems.length; i++) {
+			let test = testOnNumbers(mainList.shopItems[i]);
+			if (test == true || mainList.shopItems[i] == '') {
+				mainList.shopItems.splice(i, 1);
+				i--;
+			}
+		}
+
 		mainList.shopItems.sort();
 		items_value.textContent = mainList.shopItems;
 	}
@@ -122,11 +144,12 @@ employers_btn.addEventListener('click', () => {
 			let name = hire_employers_item[i].value,
 				test = testOnNumbers(name);
 
-			if ( (typeof(name)) === 'string' && (typeof(name)) != null && name != '' && name.length < 50 && test == false) {
-				mainList.employers[i] = name;
+			if ( typeof(name) === 'string' && typeof(name) != null && name != '' && name.length < 50 && test == false) {
+				mainList.employers.push(name);
 			} 
-		employers_value.textContent += mainList.employers[i] + ', ';
+		
 	};
+	employers_value.textContent = mainList.employers;
 });
 
 
@@ -134,7 +157,7 @@ let mainList = {
 	account: monthAccount,
 	name: shopName,
 	shopGoods: [],
-	employers: {},
+	employers: [],
 	open: false,
 	discount: false,
 	shopItems: [],
@@ -181,6 +204,3 @@ function testOnNumbers(str) {
 		}
 		
 };
-
-
-
