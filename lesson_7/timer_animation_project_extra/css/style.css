@@ -1,0 +1,25 @@
+.container {
+	background-color: rgb(197, 205, 219);
+	min-width: 500px;
+	min-height: 500px;
+}
+.timer_box {
+	margin: 0 auto;
+	background-color: rgb(63, 179, 211);
+	width: 400px;
+	height: 400px;
+}
+.timer {
+	width: 100px;
+	height: 50px;
+	padding: 15px;
+	box-sizing: border-box;
+	background-color: rgba(197, 205, 219, .7);
+	text-align: center;
+}
+.btn_start {
+	margin: 0 auto;
+	display: block;
+	width: 90px;
+	height: 30px;
+}

@@ -27,6 +27,8 @@ window.addEventListener('DOMContentLoaded', function() {
 		}
 	};
 
+	
+
 	setInterval(showTime, 1000);
 
 });
