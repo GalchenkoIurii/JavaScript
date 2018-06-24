@@ -10,7 +10,7 @@ class Options {
 	createDiv(text) {
 		let div = document.createElement('div');
 		div.innerHTML = text;
-		div.style.cssText = `height:${this.height}px;width:${this.width}px;bg:${this.bg};font-size:${this.fontSize}px;text-align:${this.textAlign}`;
+		div.style.cssText = `height:${this.height};width:${this.width};background-color:${this.bg};font-size:${this.fontSize};text-align:${this.textAlign}`;
 		document.body.appendChild(div);
 	}
 }
@@ -18,7 +18,7 @@ class Options {
 
 window.addEventListener('DOMContentLoaded', () => {
 
-	let myDiv = new Options(200, 400, 'red', 30, 'center');
+	let myDiv = new Options('200px', '400px', 'red', '30px', 'center');
 
 	myDiv.createDiv('this is DIV!!!');
 
