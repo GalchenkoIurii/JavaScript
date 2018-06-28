@@ -135,6 +135,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
 //form
 
+	function sendForm(method, url) {
+		let request = new XMLHttpRequest();
+			request.open(method, url);
+
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+			let formData = new FormData(form);
+
+			request.send(formData);
+
+			return request;
+	};
+
+	function removeElement(parent, element) {
+		parent.removeChild(element);
+	};
+
 	let message = new Object();
 	message.loading = "Загрузка...";
 	message.success = "Спасибо! Скоро мы с Вами свяжемся";
@@ -150,14 +167,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			form.appendChild(statusMessage);
 
 			//AJAX
-			let request = new XMLHttpRequest();
-			request.open("POST", "server.php");
-
-			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-			let formData = new FormData(form);
-
-			request.send(formData);
+			let request = sendForm("POST", "server.php");
 
 			request.onreadystatechange = () => {
 				if (request.readyState < 4) {
@@ -168,8 +178,9 @@ window.addEventListener('DOMContentLoaded', () => {
 					} else {
 						statusMessage.innerHTML = message.failure;
 					}
-				}
+				}	
 			};
+			setTimeout(removeElement, 3000, form, statusMessage);
 			for (let i = 0; i < input.length; i++) {
 				input[i].value = '';
 			};
@@ -183,14 +194,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		event.preventDefault();
 		contact_form.appendChild(statusMessage);
 
-		let request = new XMLHttpRequest();
-		request.open("POST", "server.php");
-
-		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-		let formData = new FormData(contact_form);
-
-		request.send(formData);
+		let request = sendForm("POST", "server.php");
 
 		request.onreadystatechange = () => {
 			if (request.readyState < 4) {
@@ -203,6 +207,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 			}
 		};
+		setTimeout(removeElement, 3000, contact_form, statusMessage);
 		for (let i = 0; i < contact_inputs.length; i++) {
 			contact_inputs[i].value = '';
 		};
