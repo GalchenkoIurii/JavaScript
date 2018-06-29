@@ -141,30 +141,63 @@ window.addEventListener('DOMContentLoaded', () => {
 	message.failure = "Что-то пошло не так...";
 
 	let form = document.getElementsByClassName('main-form')[0],
-		input = form.getElementsByTagName('input'),
 		statusMessage = document.createElement('div');
 		statusMessage.classList.add('status');
 
-		function postDataForm(url) {
-			return new Promise(resolve, reject) {
-				let request = new XMLHttpRequest();
-				request.open("POST", "server.php");
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				let formData = new FormData(form);
-				request.send(formData);
+		function postDataForm(elem, url) {
+			elem.addEventListener('submit', (event) => {
+				event.preventDefault();
+				elem.appendChild(statusMessage);
+				let formData = new FormData(elem);
 
-				request.onreadystatechange = () => {
-					
-				}
-			}
+				function postData(data) {
+					return new Promise((resolve, reject) => {
+						let request = new XMLHttpRequest();
+						request.open("POST", url);
+						request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+						request.onreadystatechange = () => {
+							if (request.readyState < 4) {
+								resolve();
+							} else if (request.readyState === 4) {
+								if (request.status == 200 && request.status < 300) {
+									resolve();
+								} else {
+									reject();
+								}
+							}
+						};
+						request.send(data);
+					});
+				};
+
+				function clearInput() {
+					let input = elem.getElementsByTagName('input');
+					for (let i = 0; i < input.length; i++) {
+		 				input[i].value = '';
+		 			};
+				};
+
+				function removeElement(parent, element) {
+					parent.removeChild(element);
+				};
+
+				postData(formData)
+					.then(() => {statusMessage.innerHTML = message.loading})
+					.then(() => {
+						// thanksModal.style.display = 'block';
+						// mainModal.style.display = 'none';
+						statusMessage.innerHTML = message.success;
+						setTimeout(removeElement, 3000, elem, statusMessage);
+					})
+					.catch(() => {statusMessage.innerHTML = message.failure})
+					.then(clearInput)
+
+			});
 		};
 
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			form.appendChild(statusMessage);
+		postDataForm(form, "server.php");
 
-
-		});
+		
 
 		// form.addEventListener('submit', (event) => {
 			// event.preventDefault();
@@ -194,36 +227,42 @@ window.addEventListener('DOMContentLoaded', () => {
 		// });
 
 	//contact form
-	let contact_form = document.getElementById('form'),
-		contact_inputs = contact_form.getElementsByTagName('input');
 
-	contact_form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		contact_form.appendChild(statusMessage);
+		let contact_form = document.getElementById('form');
 
-		let request = new XMLHttpRequest();
-		request.open("POST", "server.php");
+		postDataForm(contact_form, "server.php");
 
-		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-		let formData = new FormData(contact_form);
+	// let contact_form = document.getElementById('form'),
+	// 	contact_inputs = contact_form.getElementsByTagName('input');
 
-		request.send(formData);
+	// contact_form.addEventListener('submit', (event) => {
+	// 	event.preventDefault();
+	// 	contact_form.appendChild(statusMessage);
 
-		request.onreadystatechange = () => {
-			if (request.readyState < 4) {
-				statusMessage.innerHTML = message.loading;
-			} else if (request.readyState === 4) {
-				if (request.status == 200 && request.status < 300) {
-					statusMessage.innerHTML = message.success;
-				} else {
-					statusMessage.innerHTML = message.failure;
-				}
-			}
-		};
-		for (let i = 0; i < contact_inputs.length; i++) {
-			contact_inputs[i].value = '';
-		};
-	});
+	// 	let request = new XMLHttpRequest();
+	// 	request.open("POST", "server.php");
+
+	// 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	// 	let formData = new FormData(contact_form);
+
+	// 	request.send(formData);
+
+	// 	request.onreadystatechange = () => {
+	// 		if (request.readyState < 4) {
+	// 			statusMessage.innerHTML = message.loading;
+	// 		} else if (request.readyState === 4) {
+	// 			if (request.status == 200 && request.status < 300) {
+	// 				statusMessage.innerHTML = message.success;
+	// 			} else {
+	// 				statusMessage.innerHTML = message.failure;
+	// 			}
+	// 		}
+	// 	};
+	// 	for (let i = 0; i < contact_inputs.length; i++) {
+	// 		contact_inputs[i].value = '';
+	// 	};
+	// });
 
 });
