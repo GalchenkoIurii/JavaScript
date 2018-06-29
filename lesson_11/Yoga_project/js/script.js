@@ -135,22 +135,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 //form
 
-	function sendForm(method, url) {
-		let request = new XMLHttpRequest();
-			request.open(method, url);
+	// function sendForm(method, url) {
+	// 	let request = new XMLHttpRequest();
+	// 		request.open(method, url);
 
-			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	// 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-			let formData = new FormData(form);
+	// 		let formData = new FormData(form);
 
-			request.send(formData);
+	// 		request.send(formData);
 
-			return request;
-	};
+	// 		return request;
+	// };
 
-	function removeElement(parent, element) {
-		parent.removeChild(element);
-	};
+	
 
 	let message = new Object();
 	message.loading = "Загрузка...";
@@ -158,16 +156,22 @@ window.addEventListener('DOMContentLoaded', () => {
 	message.failure = "Что-то пошло не так...";
 
 	let form = document.getElementsByClassName('main-form')[0],
-		input = form.getElementsByTagName('input'),
 		statusMessage = document.createElement('div');
 		statusMessage.classList.add('status');
 
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			form.appendChild(statusMessage);
+		function postDataForm(elem, url) {
+			elem.addEventListener('submit', (event) => {
+				event.preventDefault();
+				elem.appendChild(statusMessage);
 
-			//AJAX
-			let request = sendForm("POST", "server.php");
+			let request = new XMLHttpRequest();
+			request.open("POST", url);
+
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+			let formData = new FormData(elem);
+
+			request.send(formData);
 
 			request.onreadystatechange = () => {
 				if (request.readyState < 4) {
@@ -180,37 +184,51 @@ window.addEventListener('DOMContentLoaded', () => {
 					}
 				}	
 			};
-			setTimeout(removeElement, 3000, form, statusMessage);
+			setTimeout(removeElement, 3000, elem, statusMessage);
+			
+			});
+		};
+
+		function removeElement(parent, element) {
+			parent.removeChild(element);
+		};
+
+		function clearInput(elem) {
+			let input = elem.getElementsByTagName('input');
 			for (let i = 0; i < input.length; i++) {
-				input[i].value = '';
-			};
-		});
+		 		input[i].value = '';
+		 	};
+		};
+
+		postDataForm(form, "server.php");
+		
 
 	//contact form
-	let contact_form = document.getElementById('form'),
-		contact_inputs = contact_form.getElementsByTagName('input');
+	let contact_form = document.getElementById('form');
 
-	contact_form.addEventListener('submit', (event) => {
-		event.preventDefault();
-		contact_form.appendChild(statusMessage);
+	postDataForm(contact_form, "server.php");
 
-		let request = sendForm("POST", "server.php");
+	// contact_form.addEventListener('submit', (event) => {
+	// 	event.preventDefault();
+	// 	contact_form.appendChild(statusMessage);
 
-		request.onreadystatechange = () => {
-			if (request.readyState < 4) {
-				statusMessage.innerHTML = message.loading;
-			} else if (request.readyState === 4) {
-				if (request.status == 200 && request.status < 300) {
-					statusMessage.innerHTML = message.success;
-				} else {
-					statusMessage.innerHTML = message.failure;
-				}
-			}
-		};
-		setTimeout(removeElement, 3000, contact_form, statusMessage);
-		for (let i = 0; i < contact_inputs.length; i++) {
-			contact_inputs[i].value = '';
-		};
-	});
+	// 	let request = sendForm("POST", "server.php");
+
+	// 	request.onreadystatechange = () => {
+	// 		if (request.readyState < 4) {
+	// 			statusMessage.innerHTML = message.loading;
+	// 		} else if (request.readyState === 4) {
+	// 			if (request.status == 200 && request.status < 300) {
+	// 				statusMessage.innerHTML = message.success;
+	// 			} else {
+	// 				statusMessage.innerHTML = message.failure;
+	// 			}
+	// 		}
+	// 	};
+	// 	setTimeout(removeElement, 3000, contact_form, statusMessage);
+	// 	for (let i = 0; i < contact_inputs.length; i++) {
+	// 		contact_inputs[i].value = '';
+	// 	};
+	// });
 
 });
