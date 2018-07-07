@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	calculate();
 	timer();
 
+	
 
 //timer
 

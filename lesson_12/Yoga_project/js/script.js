@@ -326,6 +326,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		days = document.getElementsByClassName('counter-block-input')[1],
 		place = document.getElementById('select'),
 		totalOutput = document.getElementById('total'),
+		select = document.querySelector('#select'),
 		personsVal = '',
 		daysVal = '',
 		personsSum = 0,
@@ -342,6 +343,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else if (event.keyCode == 8) {
 			personsVal = personsVal.slice(0, personsVal.length - 1);
 			personsSum = +personsVal;
+		} else {
+			persons.disabled = true;
+			persons.disabled = false;
 		};
 		console.log(event.key);
 		console.log(event);
@@ -359,6 +363,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else if (event.keyCode == 8) {
 			daysVal = daysVal.slice(0, daysVal.length - 1);
 			daysSum = +daysVal;
+		} else {
+			days.disabled = true;
+			days.disabled = false;
 		};
 		console.log(event.data);
 		console.log(event);
@@ -367,6 +374,14 @@ window.addEventListener('DOMContentLoaded', () => {
 			totalOutput.innerHTML = totalSum;
 		} else {
 			totalOutput.innerHTML = 0;
+		}
+	});
+	select.addEventListener('change', function() {
+		if (persons.value == '' || days.value == '') {
+			totalOutput.innerHTML = 0;
+		} else {
+			let tempTotal = totalSum;
+			totalOutput.innerHTML = tempTotal * this.options[this.selectedIndex].value;
 		}
 	});
 
